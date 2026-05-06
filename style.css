@@ -1,0 +1,39 @@
+body{
+  font-family: Arial;
+  background: #121212;
+  color: white;
+  text-align: center;
+}
+
+.container{
+  width: 90%;
+  margin: auto;
+}
+
+h1{
+  color: cyan;
+  margin-top: 20px;
+}
+
+button{
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  background: cyan;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#array{
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 350px;
+  margin-top: 30px;
+}
+
+.bar{
+  width: 25px;
+  margin: 2px;
+  background: cyan;
+}

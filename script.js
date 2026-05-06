@@ -1,30 +1,31 @@
-let array = [];
+async function startSort(){
 
-generateArray();
+  let input = document.getElementById("arrayInput").value;
 
-function generateArray(){
+  let array = input.split(",").map(Number);
 
-  array = [];
+  let container = document.getElementById("array");
 
-  document.getElementById("array").innerHTML = "";
+  container.innerHTML = "";
 
-  for(let i=0;i<20;i++){
-
-    let value = Math.floor(Math.random()*300)+20;
-
-    array.push(value);
+  for(let i=0;i<array.length;i++){
 
     let bar = document.createElement("div");
 
     bar.classList.add("bar");
 
-    bar.style.height = `${value}px`;
+    bar.style.height = `${array[i]*10}px`;
 
-    document.getElementById("array").appendChild(bar);
+    bar.innerText = array[i];
+
+    container.appendChild(bar);
   }
+
+  await mergeSort(array);
+
 }
 
-async function mergeSort(){
+async function mergeSort(array){
 
   array.sort((a,b)=>a-b);
 
@@ -32,8 +33,10 @@ async function mergeSort(){
 
   for(let i=0;i<array.length;i++){
 
-    await new Promise(resolve => setTimeout(resolve,100));
+    await new Promise(resolve => setTimeout(resolve,500));
 
-    bars[i].style.height = `${array[i]}px`;
+    bars[i].style.height = `${array[i]*10}px`;
+
+    bars[i].innerText = array[i];
   }
 }

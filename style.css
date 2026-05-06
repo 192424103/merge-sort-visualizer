@@ -1,42 +1,143 @@
-async function startSort(){
+let barsContainer = document.getElementById("bars-container");
 
-  let input = document.getElementById("arrayInput").value;
+function createBars(array){
 
-  let array = input.split(",").map(Number);
+    barsContainer.innerHTML = "";
 
-  let container = document.getElementById("array");
+    for(let i=0;i<array.length;i++){
 
-  container.innerHTML = "";
+        let bar = document.createElement("div");
 
-  for(let i=0;i<array.length;i++){
+        bar.classList.add("bar");
 
-    let bar = document.createElement("div");
+        bar.style.height = `${array[i]*3}px`;
 
-    bar.classList.add("bar");
+        bar.innerText = array[i];
 
-    bar.style.height = `${array[i]*10}px`;
+        barsContainer.appendChild(bar);
+    }
+}
 
-    bar.innerText = array[i];
+async function startMergeSort(){
 
-    container.appendChild(bar);
-  }
+    let input = document.getElementById("arrayInput").value;
 
-  await mergeSort(array);
+    if(input===""){
+        alert("Please enter array values");
+        return;
+    }
+
+    let array = input.split(",").map(Number);
+
+    createBars(array);
+
+    await mergeSort(array,0,array.length-1);
 
 }
 
-async function mergeSort(array){
+async function mergeSort(arr,left,right){
 
-  array.sort((a,b)=>a-b);
+    if(left>=right){
+        return;
+    }
 
-  let bars = document.getElementsByClassName("bar");
+    let mid = Math.floor((left+right)/2);
 
-  for(let i=0;i<array.length;i++){
+    await mergeSort(arr,left,mid);
 
-    await new Promise(resolve => setTimeout(resolve,500));
+    await mergeSort(arr,mid+1,right);
 
-    bars[i].style.height = `${array[i]*10}px`;
+    await merge(arr,left,mid,right);
+}
 
-    bars[i].innerText = array[i];
-  }
+async function merge(arr,left,mid,right){
+
+    let bars = document.getElementsByClassName("bar");
+
+    let leftArray = arr.slice(left,mid+1);
+
+    let rightArray = arr.slice(mid+1,right+1);
+
+    let i=0;
+    let j=0;
+    let k=left;
+
+    while(i<leftArray.length && j<rightArray.length){
+
+        bars[k].style.background = "red";
+
+        await sleep(500);
+
+        if(leftArray[i] <= rightArray[j]){
+
+            arr[k] = leftArray[i];
+
+            bars[k].style.height = `${leftArray[i]*3}px`;
+
+            bars[k].innerText = leftArray[i];
+
+            i++;
+
+        }else{
+
+            arr[k] = rightArray[j];
+
+            bars[k].style.height = `${rightArray[j]*3}px`;
+
+            bars[k].innerText = rightArray[j];
+
+            j++;
+        }
+
+        bars[k].style.background = "#38bdf8";
+
+        k++;
+    }
+
+    while(i<leftArray.length){
+
+        bars[k].style.background = "orange";
+
+        await sleep(500);
+
+        arr[k] = leftArray[i];
+
+        bars[k].style.height = `${leftArray[i]*3}px`;
+
+        bars[k].innerText = leftArray[i];
+
+        bars[k].style.background = "#38bdf8";
+
+        i++;
+        k++;
+    }
+
+    while(j<rightArray.length){
+
+        bars[k].style.background = "orange";
+
+        await sleep(500);
+
+        arr[k] = rightArray[j];
+
+        bars[k].style.height = `${rightArray[j]*3}px`;
+
+        bars[k].innerText = rightArray[j];
+
+        bars[k].style.background = "#38bdf8";
+
+        j++;
+        k++;
+    }
+}
+
+function sleep(ms){
+    return new Promise(resolve => setTimeout(resolve,ms));
+}
+
+function resetArray(){
+
+    document.getElementById("arrayInput").value = "";
+
+    barsContainer.innerHTML = "";
 }

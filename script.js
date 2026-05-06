@@ -1,127 +1,180 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+let barsContainer = document.getElementById("bars-container");
+
+let currentArray = [];
+
+function generateBars(){
+
+    let input = document.getElementById("arrayInput").value;
+
+    if(input===""){
+        alert("Please enter array values");
+        return;
+    }
+
+    currentArray = input.split(",").map(Number);
+
+    barsContainer.innerHTML = "";
+
+    let color = document.getElementById("color").value;
+
+    for(let i=0;i<currentArray.length;i++){
+
+        let bar = document.createElement("div");
+
+        bar.classList.add("bar");
+
+        bar.style.height = `${currentArray[i]*3}px`;
+
+        bar.style.background = color;
+
+        bar.innerText = currentArray[i];
+
+        barsContainer.appendChild(bar);
+    }
+
+    document.getElementById("status").innerText =
+    "Array generated successfully";
 }
 
-body{
-    background:linear-gradient(to right,#020617,#0f172a);
-    font-family:Arial, Helvetica, sans-serif;
-    color:white;
-    min-height:100vh;
+async function startMergeSort(){
+
+    if(currentArray.length===0){
+        alert("Generate the array first");
+        return;
+    }
+
+    document.getElementById("status").innerText =
+    "Merge Sort Started...";
+
+    await mergeSort(currentArray,0,currentArray.length-1);
+
+    document.getElementById("status").innerText =
+    "Sorting Completed";
+
+    document.getElementById("output").innerText =
+    currentArray.join(", ");
 }
 
-.main{
-    width:95%;
-    margin:auto;
-    padding:20px;
+async function mergeSort(arr,left,right){
+
+    if(left>=right){
+        return;
+    }
+
+    let mid = Math.floor((left+right)/2);
+
+    await mergeSort(arr,left,mid);
+
+    await mergeSort(arr,mid+1,right);
+
+    await merge(arr,left,mid,right);
 }
 
-h1{
-    text-align:center;
-    margin-bottom:30px;
-    color:#00e5ff;
-    font-size:45px;
-    letter-spacing:2px;
+async function merge(arr,left,mid,right){
+
+    let bars = document.getElementsByClassName("bar");
+
+    let leftArray = arr.slice(left,mid+1);
+
+    let rightArray = arr.slice(mid+1,right+1);
+
+    let i=0;
+    let j=0;
+    let k=left;
+
+    let speed =
+    parseInt(document.getElementById("speed").value);
+
+    let color =
+    document.getElementById("color").value;
+
+    while(i<leftArray.length && j<rightArray.length){
+
+        bars[k].style.background = "red";
+
+        await sleep(speed);
+
+        if(leftArray[i] <= rightArray[j]){
+
+            arr[k] = leftArray[i];
+
+            bars[k].style.height =
+            `${leftArray[i]*3}px`;
+
+            bars[k].innerText = leftArray[i];
+
+            i++;
+
+        }else{
+
+            arr[k] = rightArray[j];
+
+            bars[k].style.height =
+            `${rightArray[j]*3}px`;
+
+            bars[k].innerText = rightArray[j];
+
+            j++;
+        }
+
+        bars[k].style.background = color;
+
+        k++;
+    }
+
+    while(i<leftArray.length){
+
+        bars[k].style.background = "orange";
+
+        await sleep(speed);
+
+        arr[k] = leftArray[i];
+
+        bars[k].style.height =
+        `${leftArray[i]*3}px`;
+
+        bars[k].innerText = leftArray[i];
+
+        bars[k].style.background = color;
+
+        i++;
+        k++;
+    }
+
+    while(j<rightArray.length){
+
+        bars[k].style.background = "orange";
+
+        await sleep(speed);
+
+        arr[k] = rightArray[j];
+
+        bars[k].style.height =
+        `${rightArray[j]*3}px`;
+
+        bars[k].innerText = rightArray[j];
+
+        bars[k].style.background = color;
+
+        j++;
+        k++;
+    }
 }
 
-.top-panel{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    margin-bottom:25px;
+function sleep(ms){
+    return new Promise(resolve => setTimeout(resolve,ms));
 }
 
-.input-box{
-    background:#111827;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0px 0px 15px rgba(0,229,255,0.2);
-}
+function resetVisualizer(){
 
-.input-box label{
-    display:block;
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#00e5ff;
-}
+    currentArray = [];
 
-.input-box input,
-.input-box select{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-}
+    barsContainer.innerHTML = "";
 
-.button-panel{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    margin-bottom:30px;
-    flex-wrap:wrap;
-}
+    document.getElementById("arrayInput").value = "";
 
-button{
-    padding:14px 25px;
-    border:none;
-    border-radius:12px;
-    background:#00e5ff;
-    color:black;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-    font-size:16px;
-}
+    document.getElementById("status").innerText =
+    "Waiting for input...";
 
-button:hover{
-    transform:scale(1.08);
-}
-
-#bars-container{
-    height:450px;
-    background:#111827;
-    border-radius:20px;
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-    gap:10px;
-    padding:20px;
-    overflow-x:auto;
-    margin-bottom:35px;
-    box-shadow:0px 0px 20px rgba(0,229,255,0.2);
-}
-
-.bar{
-    width:60px;
-    border-radius:10px 10px 0 0;
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-    color:black;
-    font-weight:bold;
-    transition:0.4s;
-}
-
-.bottom-panel{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:#111827;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0px 0px 15px rgba(0,229,255,0.2);
-}
-
-.card h2{
-    color:#00e5ff;
-    margin-bottom:15px;
-}
-
-.card p{
-    line-height:1.8;
+    document.getElementById("output").innerText = "-";
 }

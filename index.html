@@ -3,75 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Merge Sort Visualization</title>
+  <title>Advanced Merge Sort Visualizer</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
+  <div class="main">
 
-    <h1>MERGE SORT VISUALIZATION</h1>
+    <h1>MERGE SORT VISUALIZER</h1>
 
-    <div class="input-section">
-      <input type="text" id="arrayInput" placeholder="Enter array like 5,2,8,1,9">
-      <button onclick="startMergeSort()">Sort Array</button>
-      <button onclick="resetArray()">Reset</button>
+    <div class="top-panel">
+
+      <div class="input-box">
+        <label>Enter Array</label>
+        <input type="text" id="arrayInput"
+        placeholder="Example: 8,3,5,1,9,6">
+      </div>
+
+      <div class="input-box">
+        <label>Animation Speed</label>
+        <select id="speed">
+          <option value="1000">Slow</option>
+          <option value="500" selected>Medium</option>
+          <option value="150">Fast</option>
+        </select>
+      </div>
+
+      <div class="input-box">
+        <label>Bar Color</label>
+        <select id="color">
+          <option value="#00e5ff">Cyan</option>
+          <option value="#00ff88">Green</option>
+          <option value="#ff9800">Orange</option>
+          <option value="#ff1744">Red</option>
+          <option value="#ffffff">White</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="button-panel">
+
+      <button onclick="generateBars()">Generate</button>
+
+      <button onclick="startMergeSort()">Start Merge Sort</button>
+
+      <button onclick="resetVisualizer()">Reset</button>
+
     </div>
 
     <div id="bars-container"></div>
 
-    <div class="info-section">
+    <div class="bottom-panel">
 
       <div class="card">
-        <h2>Algorithm</h2>
+        <h2>Current Status</h2>
+        <p id="status">Waiting for input...</p>
+      </div>
 
-        <ol>
-          <li>Divide the array into two halves</li>
-          <li>Recursively sort left half</li>
-          <li>Recursively sort right half</li>
-          <li>Merge the sorted halves</li>
-        </ol>
+      <div class="card">
+        <h2>Sorted Output</h2>
+        <p id="output">-</p>
       </div>
 
       <div class="card">
         <h2>Time Complexity</h2>
-
-        <p><strong>Best Case:</strong> O(n log n)</p>
-        <p><strong>Average Case:</strong> O(n log n)</p>
-        <p><strong>Worst Case:</strong> O(n log n)</p>
-      </div>
-
-      <div class="card">
-        <h2>Space Complexity</h2>
-
-        <p>O(n)</p>
-      </div>
-
-      <div class="card">
-        <h2>Merge Sort Code</h2>
-
-<pre>
-void mergeSort(int arr[], int l, int r)
-{
-   if(l < r)
-   {
-      int m = (l+r)/2;
-
-      mergeSort(arr,l,m);
-      mergeSort(arr,m+1,r);
-
-      merge(arr,l,m,r);
-   }
-}
-</pre>
-
+        <p>Best : O(n log n)</p>
+        <p>Average : O(n log n)</p>
+        <p>Worst : O(n log n)</p>
       </div>
 
     </div>
 
   </div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>

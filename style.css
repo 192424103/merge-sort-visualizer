@@ -1,39 +1,42 @@
-body{
-  font-family: Arial;
-  background: #121212;
-  color: white;
-  text-align: center;
+async function startSort(){
+
+  let input = document.getElementById("arrayInput").value;
+
+  let array = input.split(",").map(Number);
+
+  let container = document.getElementById("array");
+
+  container.innerHTML = "";
+
+  for(let i=0;i<array.length;i++){
+
+    let bar = document.createElement("div");
+
+    bar.classList.add("bar");
+
+    bar.style.height = `${array[i]*10}px`;
+
+    bar.innerText = array[i];
+
+    container.appendChild(bar);
+  }
+
+  await mergeSort(array);
+
 }
 
-.container{
-  width: 90%;
-  margin: auto;
-}
+async function mergeSort(array){
 
-h1{
-  color: cyan;
-  margin-top: 20px;
-}
+  array.sort((a,b)=>a-b);
 
-button{
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  background: cyan;
-  font-weight: bold;
-  cursor: pointer;
-}
+  let bars = document.getElementsByClassName("bar");
 
-#array{
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 350px;
-  margin-top: 30px;
-}
+  for(let i=0;i<array.length;i++){
 
-.bar{
-  width: 25px;
-  margin: 2px;
-  background: cyan;
+    await new Promise(resolve => setTimeout(resolve,500));
+
+    bars[i].style.height = `${array[i]*10}px`;
+
+    bars[i].innerText = array[i];
+  }
 }

@@ -3,52 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced Merge Sort Visualizer</title>
+  <title>Merge Sort Visualizer</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="main">
+<div class="main">
 
-    <h1>MERGE SORT VISUALIZER</h1>
+    <h1>Merge Sort Visualizer</h1>
+
+    <p class="subtitle">
+        Interactive Merge Sort Algorithm Visualization
+    </p>
 
     <div class="top-panel">
 
-      <div class="input-box">
-        <label>Enter Array</label>
-        <input type="text" id="arrayInput"
-        placeholder="Example: 8,3,5,1,9,6">
-      </div>
+        <div class="input-box">
 
-      <div class="input-box">
-        <label>Animation Speed</label>
-        <select id="speed">
-          <option value="1000">Slow</option>
-          <option value="500" selected>Medium</option>
-          <option value="150">Fast</option>
-        </select>
-      </div>
+            <label>Enter Array</label>
 
-      <div class="input-box">
-        <label>Bar Color</label>
-        <select id="color">
-          <option value="#00e5ff">Cyan</option>
-          <option value="#00ff88">Green</option>
-          <option value="#ff9800">Orange</option>
-          <option value="#ff1744">Red</option>
-          <option value="#ffffff">White</option>
-        </select>
-      </div>
+            <input
+            type="text"
+            id="arrayInput"
+            placeholder="Example: 8,3,5,1,9,6">
+
+        </div>
+
+        <div class="input-box">
+
+            <label>Animation Speed</label>
+
+            <select id="speed">
+
+                <option value="1000">Slow</option>
+
+                <option value="500" selected>
+                    Medium
+                </option>
+
+                <option value="150">
+                    Fast
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="input-box">
+
+            <label>Theme Color</label>
+
+            <select id="color">
+
+                <option value="#06b6d4">
+                    Cyan
+                </option>
+
+                <option value="#22c55e">
+                    Green
+                </option>
+
+                <option value="#f97316">
+                    Orange
+                </option>
+
+                <option value="#ec4899">
+                    Pink
+                </option>
+
+                <option value="#8b5cf6">
+                    Purple
+                </option>
+
+            </select>
+
+        </div>
 
     </div>
 
     <div class="button-panel">
 
-      <button onclick="generateBars()">Generate</button>
+        <button onclick="generateBars()">
+            Generate Array
+        </button>
 
-      <button onclick="startMergeSort()">Start Merge Sort</button>
+        <button onclick="startMergeSort()">
+            Start Merge Sort
+        </button>
 
-      <button onclick="resetVisualizer()">Reset</button>
+        <button onclick="resetVisualizer()">
+            Reset
+        </button>
 
     </div>
 
@@ -56,26 +103,41 @@
 
     <div class="bottom-panel">
 
-      <div class="card">
-        <h2>Current Status</h2>
-        <p id="status">Waiting for input...</p>
-      </div>
+        <div class="card">
 
-      <div class="card">
-        <h2>Sorted Output</h2>
-        <p id="output">-</p>
-      </div>
+            <h2>Current Status</h2>
 
-      <div class="card">
-        <h2>Time Complexity</h2>
-        <p>Best : O(n log n)</p>
-        <p>Average : O(n log n)</p>
-        <p>Worst : O(n log n)</p>
-      </div>
+            <p id="status">
+                Waiting for input...
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Sorted Output</h2>
+
+            <p id="output">
+                -
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Time Complexity</h2>
+
+            <p>Best : O(n log n)</p>
+
+            <p>Average : O(n log n)</p>
+
+            <p>Worst : O(n log n)</p>
+
+        </div>
 
     </div>
 
-  </div>
+</div>
 
 <script src="script.js"></script>
 
